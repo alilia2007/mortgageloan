@@ -1,0 +1,1446 @@
+<!DOCTYPE HTML>
+  <HTML lang = "en">
+    <HEAD>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <TITLE>jūtaku rōn</TITLE>
+          <style>
+            *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial;
+            }
+            html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #17202a;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        /* =========================
+           LAYOUT
+        ========================== */
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================== */
+
+        .sidebar {
+            width: 240px;
+            min-height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 10px 12px 30px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .nav {
+            list-style: none;
+        }
+
+        .nav li {
+            margin-bottom: 8px;
+        }
+
+        .nav a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 13px 14px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .main {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            padding: 30px;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .profile-button {
+            border: none;
+            background: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .summary-card h3 {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           SECTION
+        ========================== */
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* =========================
+           CHART CONTROLS
+        ========================== */
+
+        .chart-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 220px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: #2563eb;
+        }
+
+        .sort {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+        }
+
+        /* =========================
+           BAR CHART
+        ========================== */
+
+        .chart {
+            width: 100%;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 110px 1fr 60px;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 13px;
+            cursor: pointer;
+        }
+
+        .bar-row:hover .country-name {
+            color: #2563eb;
+        }
+
+        .country-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .bar-background {
+            height: 25px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .rate-value {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* =========================
+           COUNTRY DETAILS
+        ========================== */
+
+        .country-details {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .country-details.active {
+            display: block;
+        }
+
+        .country-details h3 {
+            margin-bottom: 8px;
+        }
+
+        .country-details p {
+            color: #6b7280;
+        }
+
+        /* =========================
+           SIMPLE HISTORICAL CHART
+        ========================== */
+
+        .history-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 220px;
+            margin-top: 20px;
+            padding: 20px;
+            border-left: 2px solid #d1d5db;
+            border-bottom: 2px solid #d1d5db;
+        }
+
+        .history-bar {
+            flex: 1;
+            max-width: 60px;
+            background: #60a5fa;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+        }
+
+        .history-year {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+        }
+
+        /* =========================
+           LOAN CALCULATOR
+        ========================== */
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2563eb;
+        }
+
+        .calculate-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .calculate-button:hover {
+            background: #1d4ed8;
+        }
+
+        .emi-result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .emi-result.active {
+            display: block;
+        }
+
+        .emi-value {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-top: 8px;
+        }
+
+        /* =========================
+           PROFILE
+        ========================== */
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .save-button {
+            background: #111827;
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .save-button:hover {
+            background: #1f2937;
+        }
+
+        /* =========================
+           SETTINGS
+        ========================== */
+
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+
+        .settings-row p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* Toggle */
+
+        .toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: #d1d5db;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle input:checked + .slider {
+            background: #2563eb;
+        }
+
+        .toggle input:checked + .slider::before {
+            transform: translateX(24px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            text-align: center;
+            color: #6b7280;
+            padding: 30px 0;
+            font-size: 14px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+                width: calc(100% - 190px);
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-grid,
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 18px;
+            }
+
+            .header {
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .bar-row {
+                grid-template-columns: 80px 1fr 50px;
+                gap: 7px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            Mortgage<span>Analytics</span>
+        </div>
+
+        <ul class="nav">
+
+            <li>
+                <a href="#dashboard">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="#countries">Countries</a>
+            </li>
+
+            <li>
+                <a href="#calculator">Loan Calculator</a>
+            </li>
+
+            <li>
+                <a href="#profile">My Loan Profile</a>
+            </li>
+
+            <li>
+                <a href="#settings">Settings</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="header" id="dashboard">
+
+            <div>
+
+                <h1>Global Mortgage Analytics</h1>
+
+                <p>
+                    Explore mortgage interest rates across countries.
+                </p>
+
+            </div>
+
+            <button class="profile-button">
+                👤 My Profile
+            </button>
+
+        </header>
+
+
+        <!-- =========================
+             SUMMARY CARDS
+        ========================== -->
+
+        <section class="summary-cards">
+
+            <div class="summary-card">
+
+                <h3>Countries Available</h3>
+
+                <div class="value">
+                    144
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>Average Interest Rate</h3>
+
+                <div class="value">
+                    7.8%
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>Data Coverage</h3>
+
+                <div class="value">
+                    Global
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COUNTRY CHART
+        ========================== -->
+
+        <section class="section" id="countries">
+
+            <div class="section-title">
+
+                <h2>Mortgage Interest Rates</h2>
+
+                <p>
+                    Compare current interest rates across countries.
+                </p>
+
+            </div>
+
+
+            <div class="chart-controls">
+
+                <input
+                    type="text"
+                    id="countrySearch"
+                    class="search"
+                    placeholder="Search country..."
+                >
+
+                <select id="sortRates" class="sort">
+
+                    <option value="high">
+                        Highest → Lowest
+                    </option>
+
+                    <option value="low">
+                        Lowest → Highest
+                    </option>
+
+                    <option value="name">
+                        Country Name
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="chart" class="chart"></div>
+
+
+            <!-- COUNTRY DETAILS -->
+
+            <div
+                id="countryDetails"
+                class="country-details"
+            >
+
+                <h3 id="selectedCountry">
+                    Country
+                </h3>
+
+                <p id="selectedRate">
+                    Interest rate
+                </p>
+
+
+                <div class="history-chart">
+
+                    <div
+                        class="history-bar"
+                        style="height: 60%;"
+                    >
+                        <span class="history-year">
+                            2000
+                        </span>
+                    </div>
+
+                    <div
+                        class="history-bar"
+                        style="height: 75%;"
+                    >
+                        <span class="history-year">
+                            2005
+                        </span>
+                    </div>
+
+                    <div
+                        class="history-bar"
+                        style="height: 50%;"
+                    >
+                        <span class="history-year">
+                            2010
+                        </span>
+                    </div>
+
+                    <div
+                        class="history-bar"
+                        style="height: 85%;"
+                    >
+                        <span class="history-year">
+                            2015
+                        </span>
+                    </div>
+
+                    <div
+                        class="history-bar"
+                        style="height: 65%;"
+                    >
+                        <span class="history-year">
+                            2020
+                        </span>
+                    </div>
+
+                    <div
+                        class="history-bar"
+                        style="height: 72%;"
+                    >
+                        <span class="history-year">
+                            2026
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             LOAN CALCULATOR
+        ========================== -->
+
+        <section
+            class="section"
+            id="calculator"
+        >
+
+            <div class="section-title">
+
+                <h2>Loan Calculator</h2>
+
+                <p>
+                    Estimate your monthly mortgage payment.
+                </p>
+
+            </div>
+
+
+            <div class="calculator-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Principal Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="principal"
+                        placeholder="Example: 5000000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Down Payment
+                    </label>
+
+                    <input
+                        type="number"
+                        id="downPayment"
+                        placeholder="Example: 1000000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Interest Rate (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="interestRate"
+                        value="8.5"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tenure (Years)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="tenure"
+                        value="20"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                onclick="calculateEMI()"
+            >
+                Calculate EMI
+            </button>
+
+
+            <div
+                id="emiResult"
+                class="emi-result"
+            >
+
+                <div>
+                    Estimated Monthly EMI
+                </div>
+
+                <div
+                    id="emiValue"
+                    class="emi-value"
+                >
+                    ₹0
+                </div>
+
+            </div>
+
+        </section>
+        <section
+            class="section"
+            id="profile"
+        >
+
+            <div class="section-title">
+
+                <h2>My Loan Profile</h2>
+
+                <p>
+                    Save your personal loan information.
+                </p>
+
+            </div>
+
+
+            <div class="profile-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter mobile number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Country
+                    </label>
+
+                    <select id="country">
+
+                        <option value="">
+                            Select country
+                        </option>
+
+                        <option>
+                            India
+                        </option>
+
+                        <option>
+                            USA
+                        </option>
+
+                        <option>
+                            United Kingdom
+                        </option>
+
+                        <option>
+                            Canada
+                        </option>
+
+                        <option>
+                            Australia
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Down Payment
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Enter down payment"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Principal Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Enter principal"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Interest Rate
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Enter rate"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tenure
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Years"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="save-button"
+                onclick="saveProfile()"
+            >
+                Save Profile
+            </button>
+        </section>
+        <section
+            class="section"
+            id="settings"
+        >
+
+            <div class="section-title">
+
+                <h2>Notification Settings</h2>
+
+                <p>
+                    Control the notifications you receive.
+                </p>
+
+            </div>
+
+
+            <div class="settings-row">
+
+                <div>
+
+                    <strong>
+                        Interest Rate Notifications
+                    </strong>
+
+                    <p>
+                        Notify me when rates change.
+                    </p>
+
+                </div>
+
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        id="rateNotifications"
+                        checked
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="settings-row">
+
+                <div>
+
+                    <strong>
+                        Loan Notifications
+                    </strong>
+
+                    <p>
+                        Receive updates about your saved loan.
+                    </p>
+
+                </div>
+
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        id="loanNotifications"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <div class="settings-row">
+
+                <div>
+
+                    <strong>
+                        Email Notifications
+                    </strong>
+
+                    <p>
+                        Receive notifications by email.
+                    </p>
+
+                </div>
+
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        id="emailNotifications"
+                    >
+
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </section>
+        <footer>
+            Global Mortgage Analytics © 2026
+        </footer>
+    </main>
+</div>
+<script>
+
+ /* const countries{
+ [mm,,,countries name and data i didn't  provide as it does not match nystored data*/
+
+    function displayChart(data) {
+
+        const chart = document.getElementById("chart");
+
+        chart.innerHTML = "";
+
+        data.forEach(country => {
+
+            const row = document.createElement("div");
+
+            row.className = "bar-row";
+
+            row.innerHTML = `
+
+                <div class="country-name">
+                    ${country.name}
+                </div>
+
+                <div class="bar-background">
+
+                    <div
+                        class="bar-fill"
+                        style="width:${Math.min(country.rate * 8, 100)}%"
+                    >
+                    </div>
+
+                </div>
+
+                <div class="rate-value">
+                    ${country.rate}%
+                </div>
+
+            `;
+
+
+            row.addEventListener("click", function () {
+
+                showCountry(country);
+
+            });
+
+
+            chart.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =====================================
+       SHOW COUNTRY DETAILS
+    ====================================== */
+
+    function showCountry(country) {
+
+        const details =
+            document.getElementById("countryDetails");
+
+        const name =
+            document.getElementById("selectedCountry");
+
+        const rate =
+            document.getElementById("selectedRate");
+
+
+        name.textContent =
+            country.name;
+
+        rate.textContent =
+            `Current mortgage interest rate: ${country.rate}%`;
+
+        details.classList.add("active");
+
+        details.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* =====================================
+       SEARCH
+    ====================================== */
+
+    document
+        .getElementById("countrySearch")
+        .addEventListener("input", function () {
+
+            const search =
+                this.value.toLowerCase();
+
+            const filtered =
+                countries.filter(country =>
+                    country.name
+                        .toLowerCase()
+                        .includes(search)
+                );
+
+            displayChart(filtered);
+
+        });
+
+
+    /* =====================================
+       SORT
+    ====================================== */
+
+    document
+        .getElementById("sortRates")
+        .addEventListener("change", function () {
+
+            let sorted =
+                [...countries];
+
+            if (this.value === "high") {
+
+                sorted.sort(
+                    (a, b) => b.rate - a.rate
+                );
+
+            }
+
+            else if (this.value === "low") {
+
+                sorted.sort(
+                    (a, b) => a.rate - b.rate
+                );
+
+            }
+
+            else {
+
+                sorted.sort(
+                    (a, b) =>
+                        a.name.localeCompare(b.name)
+                );
+
+            }
+
+            displayChart(sorted);
+
+        });
+
+
+    /* =====================================
+       EMI CALCULATOR
+    ====================================== */
+
+    function calculateEMI() {
+
+        const principal =
+            Number(
+                document.getElementById("principal").value
+            );
+
+        const downPayment =
+            Number(
+                document.getElementById("downPayment").value
+            );
+
+        const annualRate =
+            Number(
+                document.getElementById("interestRate").value
+            );
+
+        const years =
+            Number(
+                document.getElementById("tenure").value
+            );
+
+
+        const loanAmount =
+            principal - downPayment;
+
+
+        if (
+            loanAmount <= 0 ||
+            annualRate <= 0 ||
+            years <= 0
+        ) {
+
+            alert(
+                "Please enter valid loan details."
+            );
+
+            return;
+
+        }
+
+
+        const monthlyRate =
+            annualRate / 12 / 100;
+
+        const numberOfPayments =
+            years * 12;
+
+
+        const emi =
+            loanAmount *
+            monthlyRate *
+            Math.pow(
+                1 + monthlyRate,
+                numberOfPayments
+            ) /
+            (
+                Math.pow(
+                    1 + monthlyRate,
+                    numberOfPayments
+                ) - 1
+            );
+
+
+        document.getElementById("emiValue")
+            .textContent =
+            "₹" +
+            Math.round(emi)
+                .toLocaleString("en-IN");
+
+
+        document
+            .getElementById("emiResult")
+            .classList.add("active");
+
+    }
+
+
+    /* =====================================
+       SAVE PROFILE
+    ====================================== */
+
+    function saveProfile() {
+
+        const name =
+            document.getElementById("name").value;
+
+        const mobile =
+            document.getElementById("mobile").value;
+
+        const country =
+            document.getElementById("country").value;
+
+
+        if (!name || !mobile || !country) {
+
+            alert(
+                "Please enter your name, mobile number and country."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Profile saved successfully! (Demo)"
+        );
+
+    }
+
+
+    /* =====================================
+       NOTIFICATION SETTINGS
+    ====================================== */
+
+    document
+        .getElementById("rateNotifications")
+        .addEventListener("change", function () {
+
+            if (this.checked) {
+
+                console.log(
+                    "Rate notifications enabled"
+                );
+
+            } else {
+
+                console.log(
+                    "Rate notifications disabled"
+                );
+
+            }
+
+        });
+
+
+    /* =====================================
+       INITIAL CHART
+    ====================================== */
+
+    displayChart(countries);
+
+</script>
+
+</body>
+
+</html>
+    </HEAD>
+  </HTML>
