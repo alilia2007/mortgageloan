@@ -26,20 +26,10 @@
         select {
             font: inherit;
         }
-
-        /* =========================
-           LAYOUT
-        ========================== */
-
         .app {
             display: flex;
             min-height: 100vh;
         }
-
-        /* =========================
-           SIDEBAR
-        ========================== */
-
         .sidebar {
             width: 240px;
             min-height: 100vh;
@@ -83,20 +73,11 @@
             background: #1f2937;
             color: white;
         }
-
-        /* =========================
-           MAIN
-        ========================== */
-
         .main {
             margin-left: 240px;
             width: calc(100% - 240px);
             padding: 30px;
         }
-
-        /* =========================
-           HEADER
-        ========================== */
 
         .header {
             display: flex;
@@ -122,11 +103,6 @@
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
-
-        /* =========================
-           CARDS
-        ========================== */
-
         .summary-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -151,11 +127,6 @@
             font-size: 28px;
             font-weight: bold;
         }
-
-        /* =========================
-           SECTION
-        ========================== */
-
         .section {
             background: white;
             padding: 25px;
@@ -176,11 +147,6 @@
             color: #6b7280;
             font-size: 14px;
         }
-
-        /* =========================
-           CHART CONTROLS
-        ========================== */
-
         .chart-controls {
             display: flex;
             gap: 15px;
@@ -207,10 +173,6 @@
             border-radius: 8px;
             background: white;
         }
-
-        /* =========================
-           BAR CHART
-        ========================== */
 
         .chart {
             width: 100%;
@@ -254,10 +216,6 @@
             text-align: right;
         }
 
-        /* =========================
-           COUNTRY DETAILS
-        ========================== */
-
         .country-details {
             margin-top: 25px;
             padding: 20px;
@@ -277,11 +235,6 @@
         .country-details p {
             color: #6b7280;
         }
-
-        /* =========================
-           SIMPLE HISTORICAL CHART
-        ========================== */
-
         .history-chart {
             display: flex;
             align-items: flex-end;
@@ -308,11 +261,6 @@
             transform: translateX(-50%);
             font-size: 11px;
         }
-
-        /* =========================
-           LOAN CALCULATOR
-        ========================== */
-
         .calculator-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -377,11 +325,6 @@
             color: #2563eb;
             margin-top: 8px;
         }
-
-        /* =========================
-           PROFILE
-        ========================== */
-
         .profile-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -401,11 +344,6 @@
         .save-button:hover {
             background: #1f2937;
         }
-
-        /* =========================
-           SETTINGS
-        ========================== */
-
         .settings-row {
             display: flex;
             justify-content: space-between;
@@ -465,20 +403,12 @@
             transform: translateX(24px);
         }
 
-        /* =========================
-           FOOTER
-        ========================== */
-
         footer {
             text-align: center;
             color: #6b7280;
             padding: 30px 0;
             font-size: 14px;
         }
-
-        /* =========================
-           RESPONSIVE
-        ========================== */
 
         @media (max-width: 900px) {
 
@@ -540,10 +470,6 @@
 
 <div class="app">
 
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
-
     <aside class="sidebar">
 
         <div class="logo">
@@ -577,13 +503,8 @@
     </aside>
 
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================== -->
-
     <main class="main">
 
-        <!-- HEADER -->
 
         <header class="header" id="dashboard">
 
@@ -602,11 +523,6 @@
             </button>
 
         </header>
-
-
-        <!-- =========================
-             SUMMARY CARDS
-        ========================== -->
 
         <section class="summary-cards">
 
@@ -643,11 +559,6 @@
             </div>
 
         </section>
-
-
-        <!-- =========================
-             COUNTRY CHART
-        ========================== -->
 
         <section class="section" id="countries">
 
@@ -693,7 +604,6 @@
             <div id="chart" class="chart"></div>
 
 
-            <!-- COUNTRY DETAILS -->
 
             <div
                 id="countryDetails"
@@ -1142,8 +1052,6 @@
 </div>
 <script>
 
- /* const countries{
- [mm,,,countries name and data i didn't  provide as it does not match nystored data*/
 
     function displayChart(data) {
 
@@ -1193,11 +1101,6 @@
 
     }
 
-
-    /* =====================================
-       SHOW COUNTRY DETAILS
-    ====================================== */
-
     function showCountry(country) {
 
         const details =
@@ -1225,11 +1128,6 @@
 
     }
 
-
-    /* =====================================
-       SEARCH
-    ====================================== */
-
     document
         .getElementById("countrySearch")
         .addEventListener("input", function () {
@@ -1248,10 +1146,6 @@
 
         });
 
-
-    /* =====================================
-       SORT
-    ====================================== */
 
     document
         .getElementById("sortRates")
@@ -1288,11 +1182,6 @@
             displayChart(sorted);
 
         });
-
-
-    /* =====================================
-       EMI CALCULATOR
-    ====================================== */
 
     function calculateEMI() {
 
@@ -1372,10 +1261,6 @@
     }
 
 
-    /* =====================================
-       SAVE PROFILE
-    ====================================== */
-
     function saveProfile() {
 
         const name =
@@ -1405,11 +1290,6 @@
 
     }
 
-
-    /* =====================================
-       NOTIFICATION SETTINGS
-    ====================================== */
-
     document
         .getElementById("rateNotifications")
         .addEventListener("change", function () {
@@ -1430,10 +1310,6 @@
 
         });
 
-
-    /* =====================================
-       INITIAL CHART
-    ====================================== */
 
     displayChart(countries);
 
