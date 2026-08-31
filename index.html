@@ -1194,44 +1194,30 @@
             Number(
                 document.getElementById("downPayment").value
             );
-
         const annualRate =
             Number(
                 document.getElementById("interestRate").value
             );
-
         const years =
             Number(
                 document.getElementById("tenure").value
             );
-
-
         const loanAmount =
             principal - downPayment;
-
-
         if (
             loanAmount <= 0 ||
             annualRate <= 0 ||
             years <= 0
         ) {
-
             alert(
                 "Please enter valid loan details."
             );
-
             return;
-
         }
-
-
         const monthlyRate =
             annualRate / 12 / 100;
-
         const numberOfPayments =
             years * 12;
-
-
         const emi =
             loanAmount *
             monthlyRate *
@@ -1245,78 +1231,48 @@
                     numberOfPayments
                 ) - 1
             );
-
-
         document.getElementById("emiValue")
             .textContent =
             "₹" +
             Math.round(emi)
                 .toLocaleString("en-IN");
-
-
         document
             .getElementById("emiResult")
             .classList.add("active");
-
     }
-
-
     function saveProfile() {
-
         const name =
             document.getElementById("name").value;
-
         const mobile =
             document.getElementById("mobile").value;
-
         const country =
             document.getElementById("country").value;
-
-
         if (!name || !mobile || !country) {
-
             alert(
                 "Please enter your name, mobile number and country."
             );
-
             return;
-
         }
-
-
         alert(
             "Profile saved successfully! (Demo)"
         );
-
     }
-
     document
         .getElementById("rateNotifications")
         .addEventListener("change", function () {
-
             if (this.checked) {
-
                 console.log(
                     "Rate notifications enabled"
                 );
-
             } else {
-
                 console.log(
                     "Rate notifications disabled"
                 );
-
             }
-
         });
-
-
     displayChart(countries);
-
 </script>
-
 </body>
-
 </html>
     </HEAD>
   </HTML>
